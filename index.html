@@ -803,6 +803,7 @@
     .kit-btn:disabled { opacity: .55; cursor: default; box-shadow: none; }
     .kit-msg { font-size: 16px; color: var(--error); background: var(--error-soft); border-radius: var(--radius-8); padding: 8px 12px; margin: 16px 0 0; }
     .kit-msg.ok { color: var(--green-text); background: var(--green-soft); }
+    .kit-msg a { color: inherit; font-weight: 700; text-decoration: underline; }
     .kit-foot { font-size: clamp(15px, 1vw, 18px); color: var(--muted-text); margin: 20px 0 0; padding-top: 16px; border-top: 1px solid var(--line); }
     .kit-foot a { color: var(--orange-text); }
     .kit-card-note { margin: 16px 4px 0; font-size: clamp(15px, .95vw, 18px); color: var(--muted-text); }
@@ -2210,8 +2211,8 @@ var KIT = {
   API_URL: 'https://script.google.com/macros/s/AKfycbxFK97WjJqAFDYnEzN0KoVGsl9pXTK2tWh9NjlNsNlmfZ9n3hifaJt5jj0VETM_Ffv-6Q/exec',
   // 登入頁下方的聯絡信箱
   CONTACT_EMAIL: 'hs.chen@wildonetaiwan.org',  // 人員異動時要換（見 04_文檔與進度/人員異動交接清單.md）
-  // 領取表單網址（留空字串就不顯示「填寫領取表單」連結）
-  FORM_URL: '',
+  // 野灣官網「領取方式」說明文章網址（登入框下方連結、查無 Email 時的提醒都連到這裡；留空字串就都不顯示）
+  FORM_URL: 'https://www.wildonetaiwan.org/news/998',
   // 勾「記住我」時保留幾天（要和 Auth.gs 的 AUTH_REMEMBER_DAYS 一致）
   REMEMBER_DAYS: 30,
   // 等候伺服器回應的秒數上限
@@ -2259,7 +2260,7 @@ var KIT = {
     only(elForm);
     var foot = '';
     if (KIT.FORM_URL) {
-      foot += '還沒有領取嗎？<a href="' + KIT.FORM_URL + '" target="_blank" rel="noopener">填寫領取表單 ↗</a><br>';
+      foot += '還沒有領取嗎？<a href="' + KIT.FORM_URL + '" target="_blank" rel="noopener">查看領取方式 ↗</a><br>';
     }
     foot += '若已領取卻無法登入，請來信 <a href="mailto:' + KIT.CONTACT_EMAIL + '">' + KIT.CONTACT_EMAIL + '</a>。';
     $('kit-foot').innerHTML = foot;
@@ -2354,6 +2355,18 @@ var KIT = {
         sheet:    '系統暫時無法讀取名單，請稍後再試或與野灣聯繫。'
       }[res ? res.reason : ''] || '登入失敗，請再試一次。';
       setMsg(text, false);
+      // 查無 Email 時，在錯誤訊息後面加上官網領取方式連結
+      if (res && res.reason === 'notfound' && KIT.FORM_URL) {
+        var guide = document.createElement('a');
+        guide.href = KIT.FORM_URL;
+        guide.target = '_blank';
+        guide.rel = 'noopener';
+        guide.textContent = '點此';
+        elMsg.appendChild(document.createElement('br'));
+        elMsg.appendChild(document.createTextNode('尚未領取？'));
+        elMsg.appendChild(guide);
+        elMsg.appendChild(document.createTextNode('查看資源包領取方式'));
+      }
       elBtn.disabled = false;
       elBtn.textContent = '進入資源包';
     }).catch(function () {
