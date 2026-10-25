@@ -308,11 +308,14 @@
     .lc-dot.active { background: #ffffff; }
     .lesson-media.single .lc-btn, .lesson-media.single .lc-dots { display: none; }
 
-    /* ===== 分享交流（野灣夥伴教師社群） ===== */
+    /* ===== 分享交流（野灣夥伴教師社群）2026-10-25 方案二版面 =====
+       文字都來自 Google 文件「分享交流文字內容編輯」：
+       摺疊上方（#share-intro）＝引言、影響力小卡、小標籤；摺疊裡（#share-content）＝加入步驟等。
+       大按鈕（.share-cta）固定寫在 HTML，位置在兩者之間。 */
     .share-card {
       position: relative; overflow: hidden;
       background: var(--card); border-radius: var(--radius-20);
-      padding: 24px; box-shadow: var(--shadow-md);
+      padding: 32px; box-shadow: var(--shadow-md);
     }
     .share-illus {
       position: absolute; right: -6px; bottom: -8px; width: 77px; height: auto;
@@ -320,9 +323,48 @@
       filter: drop-shadow(0 8px 16px rgba(110, 85, 50, 0.12));
     }
     .share-card p { position: relative; margin: 0; color: var(--text); font-size: var(--fs-body); }
-    .share-details { padding-bottom: 8px; }
-    .share-content { padding-right: 72px; }   /* 右下角留給麻雀插圖，內文寬度一致 */
-    .share-details { position: relative; margin-top: 16px; border-top: 1px solid var(--line); padding-top: 16px; }
+
+    /* 摺疊上方 */
+    .share-intro { position: relative; display: flex; flex-direction: column; gap: 28px; }
+    .share-intro > p { font-size: 19px; }
+    .share-intro > p + p { margin-top: -18px; }   /* 引言有好幾段時靠近一點 */
+    .share-group { display: flex; flex-direction: column; gap: 14px; }
+    .share-sub { margin: 0; font-weight: 900; color: var(--text-heading); line-height: var(--lh-normal); }
+    .share-intro .share-sub { font-size: 22px; }
+    .share-card p.share-note { font-size: 16.5px; color: var(--muted-text); }
+
+    /* 影響力小卡：清單每一項開頭是粗體「標題：」 */
+    .share-impact { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .share-impact li { display: flex; flex-direction: column; gap: 10px; background: var(--primary-soft); border-radius: var(--radius-16); padding: 22px 20px; }
+    .share-impact li:nth-child(3n+2) { background: var(--green-soft); }
+    .share-impact li:nth-child(3n) { background: var(--ocean-soft); }
+    .share-impact .ico { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: var(--text-title); }
+    .share-impact li:nth-child(3n+2) .ico { background: var(--green); }
+    .share-impact li:nth-child(3n) .ico { background: var(--ocean-blue); }
+    .share-impact .ico svg { width: 24px; height: 24px; }
+    .share-impact .t { display: block; font-size: 19px; font-weight: 900; color: var(--text-title); line-height: var(--lh-normal); }
+    .share-impact .d { display: block; margin-top: 6px; font-size: 16.5px; color: var(--text); line-height: var(--lh-body); }
+
+    /* 小標籤：清單項目沒有粗體 */
+    .share-chips { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, max-content); justify-content: start; gap: 10px; }   /* 電腦版每行 4 個 */
+    .share-chips li { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: var(--radius-pill); background: var(--bg); border: 1px solid var(--line); font-size: 16.5px; font-weight: 700; color: var(--text); line-height: 1.5; }
+    .share-chips svg { flex-shrink: 0; width: 20px; height: 20px; color: var(--ocean-text); }
+    .share-chips li.more { background: transparent; border: 1.5px dashed var(--line-dot); font-weight: 500; color: var(--muted-text); }
+
+    /* 加入社團大按鈕（固定在網頁上；連結在 HTML 的 id="share-cta"） */
+    .share-cta-wrap { position: relative; margin-top: 28px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .share-cta {
+      position: relative; display: inline-flex; align-items: center; gap: 10px;
+      background: var(--ocean-text); color: #ffffff; text-decoration: none;
+      font-size: 18px; font-weight: 900; border-radius: 14px; padding: 14px 24px; min-height: 56px; box-sizing: border-box;
+      box-shadow: 0 3px 10px rgba(30, 80, 85, 0.25); transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .share-cta:hover { background: #245a5e; transform: translateY(-1px); }
+    .share-cta:focus-visible { outline: 3px solid var(--text-title); outline-offset: 3px; }
+    .share-cta-note { position: relative; display: block; font-size: 15px; color: var(--muted-text); }
+
+    /* 摺疊 */
+    .share-details { position: relative; margin-top: 24px; border-top: 1px solid var(--line); padding-top: 12px; padding-bottom: 8px; }
     .share-details summary {
       cursor: pointer; font-weight: 900; font-size: var(--fs-h3); color: var(--text-heading); list-style: none;
       display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
@@ -330,39 +372,39 @@
     .share-details summary::-webkit-details-marker { display: none; }
     .share-details summary::after { content: "▾"; display: inline-block; transition: transform 0.2s ease; }
     .share-details[open] summary::after { transform: rotate(180deg); }
-    .share-rules { margin: 12px 0 0; padding-left: 20px; font-size: 17px; color: var(--text); line-height: var(--lh-body); }
+    .share-content { padding: 12px 72px 0 4px; display: flex; flex-direction: column; gap: 24px; }   /* 右邊留給麻雀插圖 */
+    .share-content .share-group { gap: 10px; }
+    .share-content .share-sub { font-size: 18px; }
+    .share-rules { margin: 0; padding-left: 2em; font-size: 17px; color: var(--text); line-height: var(--lh-body); display: flex; flex-direction: column; gap: 6px; }
     .share-rules li.highlight { font-weight: 700; color: var(--text-heading); }
     /* 三步驟：規範的時間軸元件（虛線 + 圓點） */
-    .share-steps { position: relative; display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
+    .share-steps { position: relative; display: flex; flex-direction: column; gap: 14px; padding-left: 8px; }
     .share-steps::before {
-      content: ""; position: absolute; left: 13px; top: 16px; bottom: 16px;
+      content: ""; position: absolute; left: 22px; top: 16px; bottom: 16px;
       border-left: 2px dotted var(--line-dot);
     }
     .share-step { position: relative; display: flex; gap: 12px; align-items: flex-start; }
     .share-step-num {
-      flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--card);
+      flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--card);
       border: 3px solid var(--primary); color: var(--text-heading);
       font-size: 15px; font-weight: 900; display: flex; align-items: center; justify-content: center;
     }
-    .share-step:nth-child(2) .share-step-num { border-color: var(--orange); }
-    .share-step:last-child .share-step-num { border-color: var(--green); }
+    .share-step:nth-child(3n+2) .share-step-num { border-color: var(--orange); }
+    .share-step:nth-child(3n) .share-step-num { border-color: var(--green); }
     .share-step-body { font-size: 17px; color: var(--text); }
     .share-step-body a { font-weight: 700; }
-    /* 分享交流：引言與摺疊內容由 Google 文件發布 */
-    /* 加入社團大按鈕（固定在網頁上；連結在 HTML 的 id="share-cta"） */
-    .share-cta {
-      position: relative; display: inline-flex; align-items: center; gap: 10px; margin-top: 20px;
-      background: var(--ocean-text); color: #ffffff; text-decoration: none;
-      font-size: 18px; font-weight: 900; border-radius: 14px; padding: 14px 24px; min-height: 56px; box-sizing: border-box;
-      box-shadow: 0 3px 10px rgba(30, 80, 85, 0.25); transition: background 0.2s ease, transform 0.2s ease;
+    .share-card p.share-tip { font-size: 15.5px; color: var(--muted-text); background: var(--bg); border-radius: var(--radius-12); padding: 12px 16px; }
+
+    /* 平板、手機：小卡改成直排，圖示放左邊 */
+    @media (max-width: 760px) {
+      .share-chips { display: flex; flex-wrap: wrap; }   /* 平板、手機：小標籤自動換行 */
+      .share-impact { grid-template-columns: 1fr; gap: 12px; }
+      .share-impact li { flex-direction: row; align-items: flex-start; gap: 12px; padding: 14px; }
+      .share-impact .ico { width: 38px; height: 38px; }
+      .share-impact .ico svg { width: 20px; height: 20px; }
+      .share-impact .t { font-size: 17px; }
+      .share-impact .d { margin-top: 2px; font-size: 15.5px; }
     }
-    .share-cta:hover { background: #245a5e; transform: translateY(-1px); }
-    .share-cta:focus-visible { outline: 3px solid var(--text-title); outline-offset: 3px; }
-    .share-cta-note { position: relative; display: block; margin-top: 8px; font-size: 15px; color: var(--muted-text); }
-    .share-content > p > strong:only-child { color: var(--text-heading); }
-    .share-intro p + p { margin-top: 8px; }
-    .share-content > p { margin: 12px 0 0; }
-    .share-content > p + p { margin-top: 12px; }
 
     /* ===== 篩選器 ===== */
     .filter-panel {
@@ -648,7 +690,27 @@
       .share-card p { max-width: 100%; }
       .share-content { padding-right: 0; padding-bottom: 40px; }
       .share-cta { display: flex; justify-content: center; width: 100%; font-size: 16.5px; padding: 12px 16px; text-align: center; }
+      .share-cta-wrap { align-items: stretch; margin-top: 24px; }
+      .share-cta-note { font-size: 14.5px; }
+      .share-intro { gap: 24px; }
+      .share-intro > p { font-size: 17px; }
+      .share-intro > p + p { margin-top: -14px; }
+      .share-intro .share-sub { font-size: 19px; }
+      .share-card p.share-note { font-size: 15px; }
+      .share-chips { gap: 8px; }
+      .share-chips { display: grid; grid-template-columns: repeat(2, max-content); }   /* 手機：小標籤兩欄 */
+      .share-chips li { padding: 6px 10px; font-size: 15px; gap: 5px; letter-spacing: 0; }
+      .share-chips svg { width: 18px; height: 18px; }
+      .share-details summary { font-size: 17.5px; }
+      .share-content { padding-left: 0; gap: 20px; }
+      .share-content .share-sub { font-size: 16.5px; }
+      .share-rules, .share-step-body { font-size: 15.5px; }
+      .share-rules { padding-left: 1.6em; }
+      .share-card p.share-tip { font-size: 14.5px; }
     }
+    /* 很窄的手機（小於 375px）：小標籤拿掉圖示、字小一點，維持兩欄 */
+    @media (max-width: 374px) { .share-chips li { font-size: 14.5px; padding: 6px 9px; } .share-chips svg { display: none; } }
+    @media (max-width: 339px) { .share-chips { display: flex; flex-wrap: wrap; } }   /* 更窄的舊手機：自動換行 */
 
     /* 教案照片：螢幕較窄時改放到卡片最上方 */
     @media (max-width: 900px) {
@@ -1034,49 +1096,56 @@
     </div>
     <div class="share-card">
       <img class="share-illus" src="data:image/webp;base64,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" alt="" aria-hidden="true" />
-      <!-- 引言、摺疊按鈕文字、展開內容：由 Google 文件「分享交流文字內容編輯」發布後自動替換。下面是讀不到時的備用文字 -->
-      <div class="share-intro" id="share-intro"><p>當您把資源包帶進課堂之後，那些學生的提問、課堂上的小發現，甚至是卡住的地方，都是最珍貴的教學經驗。誠摯邀請您加入「野灣同學會」，和全臺關心野生動物的老師們一起交流，讓您的一堂課，成為更多教室的起點。</p></div>
-      <!-- 加入社團大按鈕：要換社團連結改 href；要改按鈕文字改中間的字 -->
-      <a class="share-cta" id="share-cta" href="https://www.facebook.com/groups/1257915812024988" target="_blank" rel="noopener">加入「野灣同學會」，分享您的課堂故事 ↗</a>
-      <span class="share-cta-note">申請加入時，審核問題請填寫「領取野生動物救傷教學資源包」</span>
-      <details class="share-details">
-        <summary id="share-summary">您的分享，能帶來什麼改變？</summary>
-        <div class="share-content" id="share-content">
-        <p><strong>您的分享，會帶來這些影響</strong></p>
-        <ul class="share-rules">
-          <li><strong>成為其他老師的起點：</strong>許多老師想談野生動物救傷，卻不知道從哪裡開始。您的一次嘗試，可能就是另一位老師踏出第一步的勇氣。</li>
-          <li><strong>讓教材越來越好用：</strong>野灣會關注社團中的分享，作為修訂教案、補充學習單與新增資源的參考。您遇到的困難，會成為下一版教材的改進方向。</li>
-          <li><strong>讓救傷現場看見教育的力量：</strong>孩子們對受傷動物的關心與提問，會回到野灣的救傷團隊，也成為我們持續投入的動力。</li>
-        </ul>
-        <p><strong>在社群裡，您也可以</strong></p>
-        <ul class="share-rules">
-          <li>與野灣和其他老師討論教學上的疑問、物種或救傷知識</li>
-          <li>看見其他老師的教學點子與改編方式</li>
-          <li>掌握第一手的救傷故事、新教材與教學資源消息</li>
-        </ul>
-        <p><strong>可以分享什麼？不需要是完整的教案</strong></p>
-        <ul class="share-rules">
-          <li>一張課堂照片或學生作品</li>
-          <li>學生一句讓您印象深刻的提問或回饋</li>
-          <li>您改編教材的方式，或結合其他科目的點子</li>
-          <li>教學時卡住、覺得不好用的地方</li>
-        </ul>
-        <p><strong>三步驟，加入社群</strong></p>
-        <div class="share-steps">
-          <div class="share-step">
-            <span class="share-step-num">1</span>
-            <span class="share-step-body"><a href="https://www.facebook.com/groups/1257915812024988" target="_blank" rel="noopener">加入「野灣同學會」FB 社團 ↗</a>（申請加入時，審核問題請填寫「領取野生動物救傷教學資源包」）</span>
-          </div>
-          <div class="share-step">
-            <span class="share-step-num">2</span>
-            <span class="share-step-body">發文分享您的課堂故事，照片、文字都可以</span>
-          </div>
-          <div class="share-step">
-            <span class="share-step-num">3</span>
-            <span class="share-step-body">在貼文中標註 @野灣野生動物保育協會，讓我們看見您的分享</span>
-          </div>
+      <!-- 摺疊上方（引言、影響力小卡、小標籤）與摺疊裡的內容：由 Google 文件「分享交流文字內容編輯」發布後自動替換。下面是讀不到時的備用文字 -->
+      <div class="share-intro" id="share-intro">
+        <p>一個教學點子、學生的一句提問、課堂上的一個小觀察，都值得被看見。</p>
+        <div class="share-group">
+          <h3 class="share-sub">您的分享，會走得比您想的更遠</h3>
+          <ul class="share-impact">
+            <li><span class="ico" data-icon="sprout"></span><div><span class="t">成為另一位老師的起點</span><span class="d">很多老師想談救傷，卻不知道從哪裡開始。您的一次嘗試，可能就是他踏出第一步的勇氣。</span></div></li>
+            <li><span class="ico" data-icon="refresh"></span><div><span class="t">讓教材越用越好用</span><span class="d">野灣會參考社團中的分享修訂教案與學習單。您卡住的地方，就是下一版改進的方向。</span></div></li>
+            <li><span class="ico" data-icon="heart"></span><div><span class="t">讓救傷現場被鼓舞</span><span class="d">孩子們對受傷動物的關心，會傳回野灣的救傷團隊，成為我們繼續照顧牠們的力量。</span></div></li>
+          </ul>
         </div>
-        <p>小提醒：分享含有學生臉部的照片前，請先確認已取得學生與家長的同意，或以背影、作品照片呈現。</p>
+        <div class="share-group">
+          <h3 class="share-sub">任何教學點子、觀察、經驗都值得分享！</h3>
+          <ul class="share-chips">
+            <li><span data-icon="image"></span>用了哪些素材？</li>
+            <li><span data-icon="book"></span>結合哪個科目？</li>
+            <li><span data-icon="spark"></span>怎麼引起動機？</li>
+            <li><span data-icon="list"></span>課堂怎麼進行？</li>
+            <li><span data-icon="message"></span>學生有什麼反應？</li>
+            <li><span data-icon="help"></span>哪裡卡住了？</li>
+            <li class="more">…還有更多</li>
+          </ul>
+          <p class="share-note">只要您在課堂中帶入野生動物救傷的觀念，都值得分享！例如：「五年級自然課，帶他們看xx影片搭配討論和學習單，學生最好奇的是：撿到幼鳥可以帶回家嗎？」</p>
+        </div>
+      </div>
+      <!-- 加入社團大按鈕：要換社團連結改 href；要改按鈕文字改中間的字 -->
+      <div class="share-cta-wrap">
+        <a class="share-cta" id="share-cta" href="https://www.facebook.com/groups/1257915812024988" target="_blank" rel="noopener">加入「野灣同學會」，分享您的課堂故事 ↗</a>
+        <span class="share-cta-note">申請加入時，審核問題請填寫「領取野生動物救傷教學資源包」</span>
+      </div>
+      <details class="share-details">
+        <summary id="share-summary">怎麼加入？在社群還能做什麼？</summary>
+        <div class="share-content" id="share-content">
+          <div class="share-group">
+            <div class="share-sub">三步驟，加入社群</div>
+            <div class="share-steps">
+              <div class="share-step"><span class="share-step-num">1</span><span class="share-step-body">點上方按鈕申請加入「野灣同學會」，審核問題請填寫「領取野生動物救傷教學資源包」</span></div>
+              <div class="share-step"><span class="share-step-num">2</span><span class="share-step-body">發文分享您的課堂故事，照片、文字都可以</span></div>
+              <div class="share-step"><span class="share-step-num">3</span><span class="share-step-body">在貼文中標註 @野灣野生動物保育協會，讓我們看見您的分享</span></div>
+            </div>
+          </div>
+          <div class="share-group">
+            <div class="share-sub">在社群裡，您也可以</div>
+            <ul class="share-rules">
+              <li>和野灣與其他老師討論教學或救傷問題</li>
+              <li>看見其他老師的教學點子與改編方式</li>
+              <li>掌握第一手的救傷故事與新教材消息</li>
+            </ul>
+          </div>
+          <p class="share-tip">小提醒：分享含有學生臉部的照片前，請先確認已取得學生與家長的同意，或以背影、作品照片呈現。</p>
         </div>
       </details>
     </div>
@@ -1896,45 +1965,185 @@ function woStartApp() {
     return texts.length > 0 && texts.every(function (r) { return r.b; });
   }
 
+  function runsText(runs) {
+    return (runs || []).map(function (r) { return (r && r.x) || ""; }).join("");
+  }
+
+  // 圖示（線條）。小卡依序用 sprout、refresh、heart；小標籤依文字找圖示
+  var SHARE_ICONS = {
+    sprout: '<path d="M12 21v-9"/><path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6z"/><path d="M12 14c0-3-2.5-5-6-5 0 3 2.5 5 6 5z"/>',
+    refresh: '<path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/>',
+    heart: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+    camera: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+    image: '<rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M20 16l-5-5-7 8"/>',
+    message: '<path d="M5 5h14v10H10l-4 4v-4H5z"/>',
+    bulb: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>',
+    help: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14"/><path d="M12 17h.01"/>',
+    book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>',
+    spark: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/>',
+    list: '<path d="M9 6h11M9 12h11M9 18h11"/><path d="M4.5 6h.01M4.5 12h.01M4.5 18h.01"/>',
+    check: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/>'
+  };
+  var IMPACT_ICONS = ["sprout", "refresh", "heart"];
+  var CHIP_ICON_RULES = [
+    [/照片|相片/, "camera"],
+    [/素材|影片|作品|作業|學習單|畫/, "image"],
+    [/科目|課程|領域|結合/, "book"],
+    [/動機|引起|開場/, "spark"],
+    [/怎麼|進行|操作|流程|步驟/, "list"],
+    [/反應|提問|一句|回饋|對話/, "message"],
+    [/點子|改編|想法|創意/, "bulb"],
+    [/卡住|困難|不好用|問題/, "help"]
+  ];
+
+  function shareIcon(name) {
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("fill", "none");
+    svg.setAttribute("stroke", "currentColor");
+    svg.setAttribute("stroke-width", "2");
+    svg.setAttribute("stroke-linecap", "round");
+    svg.setAttribute("stroke-linejoin", "round");
+    svg.setAttribute("aria-hidden", "true");
+    svg.innerHTML = SHARE_ICONS[name] || SHARE_ICONS.check;
+    return svg;
+  }
+
+  function chipIconName(text) {
+    for (var i = 0; i < CHIP_ICON_RULES.length; i++) {
+      if (CHIP_ICON_RULES[i][0].test(text)) return CHIP_ICON_RULES[i][1];
+    }
+    return "check";
+  }
+
+  // 網頁內建的備用文字也換上圖示（<span data-icon="…">）
+  function fillShareIcons(root) {
+    Array.prototype.forEach.call((root || document).querySelectorAll("#share [data-icon]"), function (el) {
+      if (!el.firstChild) el.appendChild(shareIcon(el.getAttribute("data-icon")));
+      if (el.parentNode && el.parentNode.parentNode && el.parentNode.parentNode.className === "share-chips") {
+        el.replaceWith(el.firstChild);   // 小標籤的圖示直接放在 li 裡
+      }
+    });
+  }
+
+  // 小卡：清單項目開頭是粗體、後面還有一般文字
+  function isCardItem(runs) {
+    var t = (runs || []).filter(function (r) { return r && r.x && r.x.trim(); });
+    return t.length > 0 && !!t[0].b && !allBold(runs);
+  }
+
+  function splitCard(runs) {
+    var title = "", rest = [], inTitle = true;
+    (runs || []).forEach(function (r) {
+      if (!r || typeof r.x !== "string") return;
+      if (inTitle && (r.b || !r.x.trim())) { title += r.x; return; }
+      inTitle = false;
+      rest.push({ x: r.x, b: r.b, u: r.u });
+    });
+    title = title.replace(/[\s：:]+$/, "").trim();
+    if (rest.length) rest[0].x = rest[0].x.replace(/^[\s：:]+/, "");
+    return { title: title, rest: rest.filter(function (r) { return r.x; }) };
+  }
+
+  // 把文件內容轉成畫面。isTop＝摺疊上方
+  // 規則：整行粗體＝小標（開一個群組）；摺疊上方的清單，項目開頭都是粗體→小卡，否則→小標籤；
+  //       摺疊上方小標下的段落＝灰色補充小字；以「小提醒」開頭的段落＝米色提示框
+  function buildShareBlocks(blocks, isTop) {
+    var frag = document.createDocumentFragment();
+    var group = null;
+    (blocks || []).forEach(function (blk) {
+      if (!blk) return;
+      var target = group || frag;
+      if (blk.t === "p") {
+        if (allBold(blk.r)) {
+          group = createEl("div", "share-group");
+          var h = createEl(isTop ? "h3" : "div", "share-sub", runsText(blk.r).trim());
+          group.appendChild(h);
+          frag.appendChild(group);
+          return;
+        }
+        var p = document.createElement("p");
+        appendRuns(p, blk.r);
+        if (/^\s*(小提醒|提醒)/.test(runsText(blk.r))) {
+          p.className = "share-tip";
+          group = null;
+          frag.appendChild(p);
+          return;
+        }
+        if (group && isTop) p.className = "share-note";
+        target.appendChild(p);
+      } else if (blk.t === "ul" && isTop) {
+        var items = blk.items || [];
+        if (items.length && items.every(isCardItem)) {
+          var cards = createEl("ul", "share-impact");
+          items.forEach(function (runs, i) {
+            var c = splitCard(runs);
+            var li = document.createElement("li");
+            var ico = createEl("span", "ico");
+            ico.appendChild(shareIcon(IMPACT_ICONS[i % IMPACT_ICONS.length]));
+            li.appendChild(ico);
+            var box = document.createElement("div");
+            box.appendChild(createEl("span", "t", c.title));
+            var d = createEl("span", "d");
+            appendRuns(d, c.rest);
+            box.appendChild(d);
+            li.appendChild(box);
+            cards.appendChild(li);
+          });
+          target.appendChild(cards);
+        } else {
+          var chips = createEl("ul", "share-chips");
+          items.forEach(function (runs) {
+            var li = document.createElement("li");
+            var chipText = runsText(runs).trim();
+            if (/^(…|\.\.\.|⋯)/.test(chipText)) {   // 以「…」開頭＝「還有更多」虛線標籤
+              li.className = "more";
+              appendRuns(li, runs);
+              chips.appendChild(li);
+              return;
+            }
+            li.appendChild(shareIcon(chipIconName(chipText)));
+            appendRuns(li, runs);
+            chips.appendChild(li);
+          });
+          target.appendChild(chips);
+        }
+      } else if (blk.t === "ul") {
+        var ul = createEl("ul", "share-rules");
+        (blk.items || []).forEach(function (runs) {
+          var li = document.createElement("li");
+          if (allBold(runs)) li.className = "highlight";
+          appendRuns(li, runs);
+          ul.appendChild(li);
+        });
+        target.appendChild(ul);
+      } else if (blk.t === "ol") {
+        var steps = createEl("div", "share-steps");
+        (blk.items || []).forEach(function (runs, i) {
+          var step = createEl("div", "share-step");
+          step.appendChild(createEl("span", "share-step-num", String(i + 1)));
+          var body = createEl("span", "share-step-body");
+          appendRuns(body, runs);
+          step.appendChild(body);
+          steps.appendChild(step);
+        });
+        target.appendChild(steps);
+      }
+    });
+    return frag;
+  }
+
   function renderBonus() {
+    fillShareIcons();
     var b = DATA.bonus;
     if (!b || b.v !== 1 || !b.summary || !b.blocks || !b.blocks.length) return;
     try {
-      var intro = document.createDocumentFragment();
-      (b.intro || []).forEach(function (runs) {
-        var p = document.createElement("p");
-        appendRuns(p, runs);
-        intro.appendChild(p);
+      // 10-25 以前發布的引言是「段落陣列」，以後是和摺疊裡一樣的格式，兩種都看得懂
+      var top = (b.intro || []).map(function (x) {
+        return Array.isArray(x) ? { t: "p", r: x } : x;
       });
-
-      var content = document.createDocumentFragment();
-      b.blocks.forEach(function (blk) {
-        if (blk.t === "p") {
-          var p = document.createElement("p");
-          appendRuns(p, blk.r);
-          content.appendChild(p);
-        } else if (blk.t === "ul") {
-          var ul = createEl("ul", "share-rules");
-          (blk.items || []).forEach(function (runs) {
-            var li = document.createElement("li");
-            if (allBold(runs)) li.className = "highlight";
-            appendRuns(li, runs);
-            ul.appendChild(li);
-          });
-          content.appendChild(ul);
-        } else if (blk.t === "ol") {
-          var steps = createEl("div", "share-steps");
-          (blk.items || []).forEach(function (runs, i) {
-            var step = createEl("div", "share-step");
-            step.appendChild(createEl("span", "share-step-num", String(i + 1)));
-            var body = createEl("span", "share-step-body");
-            appendRuns(body, runs);
-            step.appendChild(body);
-            steps.appendChild(step);
-          });
-          content.appendChild(steps);
-        }
-      });
+      var intro = buildShareBlocks(top, true);
+      var content = buildShareBlocks(b.blocks, false);
 
       // 全部組好沒出錯，才一次換上去
       var introEl = document.getElementById("share-intro");
