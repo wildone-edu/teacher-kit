@@ -438,10 +438,12 @@
       font-size: 13.5px; color: var(--muted-text); pointer-events: none;
     }
 
-    .filter-summary {
-      display: flex; justify-content: flex-end; align-items: center;
-      font-size: var(--fs-caption); color: var(--muted-text); border-top: 1px solid var(--line); padding-top: 12px;
-    }
+    /* 篩選器那一行：左邊三個下拉選單、右邊「清除篩選」（2026-10-26 從下方移上來） */
+    .filter-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+    .filter-row .filter-dropdowns { flex: 1 1 auto; }
+    .filter-row .filter-clear { margin-left: auto; }
+    /* 說明小字裡的「野灣教師社群」連結 */
+    .block-desc .desc-link { font-weight: 700; color: inherit; text-decoration: underline; text-underline-offset: 3px; }
     .filter-clear {
       font: inherit; font-size: 16px; font-weight: 700; color: var(--orange-text); background: none; border: none;
       cursor: pointer; padding: 0; min-height: 44px; text-decoration: underline; text-underline-offset: 3px;
@@ -1048,7 +1050,7 @@
     <div class="block-head">
       <h2 class="block-title">教學資源搜尋</h2>
     </div>
-    <p class="block-desc">搜尋框跨影片、桌遊、書單一起找；也可以用適用年齡、科目領域、議題融入縮小範圍。點擊方塊查看完整介紹。野灣將定期更新資源素材，也歡迎推薦給我們！</p>
+    <p class="block-desc">以年齡、科目領域、議題融入搜尋，篩選出合適的教學資源。點擊方塊可查看完整介紹。<br>本區教學資源持續更新中，若您有推薦項目，歡迎在<a class="desc-link" href="#share">野灣教師社群</a>分享！</p>
     <div id="res-filter"></div>
 
     <div class="subsection" id="videos-sub">
@@ -1087,7 +1089,7 @@
       <h2 class="block-title">開源教學資源</h2>
       <span class="pill ok" id="open-count-pill"></span>
     </div>
-    <p class="block-desc">精選野生動物救傷開源素材，提供教學用途使用。野灣將定期更新資源素材，也歡迎推薦給我們！</p>
+    <p class="block-desc">精選野生動物救傷開源素材，提供教學用途使用。<br>本區教學資源持續更新中，若您有推薦項目，歡迎在<a class="desc-link" href="#share">野灣教師社群</a>分享！</p>
     <!-- 卡片由程式依後台「開源教學資源」分頁產生：縮圖、名稱、單位、簡介、按鈕 -->
     <div class="open-grid" id="open-list"></div>
   </section>
@@ -1709,9 +1711,10 @@ function woStartApp() {
       wrap.appendChild(select);
       ddRow.appendChild(wrap);
     });
-    panel.appendChild(ddRow);
+    var filterRow = createEl("div", "filter-row");
+    filterRow.appendChild(ddRow);
+    panel.appendChild(filterRow);
 
-    var summary = createEl("div", "filter-summary");
     var clearBtn = createEl("button", "filter-clear", "清除篩選");
     clearBtn.type = "button";
     clearBtn.addEventListener("click", function () {
@@ -1724,8 +1727,7 @@ function woStartApp() {
       searchInput.value = "";
       renderAll();
     });
-    summary.appendChild(clearBtn);
-    panel.appendChild(summary);
+    filterRow.appendChild(clearBtn);
 
     filterEl.appendChild(panel);
   }
